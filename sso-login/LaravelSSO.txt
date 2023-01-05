@@ -1,0 +1,70 @@
+Laravel SSO
+
+Step-1: Laravel install 
+
+Step-2: composer require laravel/ui
+
+Step-3: composer require laravel/passport
+
+Step-4: create db -> laravel_sso & .env db setup
+
+Step-5: php artisan passport:install --uuids
+write->yes.
+
+Step-6: User.php
+use Laravel\Passport\HasApiTokens;
+use HasApiTokens
+
+Step-7: AuthServiceProvider.php
+use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Gate;
+
+public function boot(){
+   //add this code
+   if(!$this->app->routesAreCached()){
+	Passport::routes();
+   }
+   Passport::tokensExpireIn(Carbon::now()->addDays(1));
+   Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+   Passport::personalAccessTokensExpireIn(Carbon::now()->addMonths(30));
+   //code end
+}
+
+Step-8: auth.php
+   'guards' => [
+	//add this code
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+	//code end
+    ],
+
+Step-9: php artisan ui bootstrap --auth
+
+Step-10: php artisan passport:client
+Client ID: 98266fe4-c4ae-463e-bad6-205cbda83edc
+Client secret: QATQz7cY2DRhtFZsED5upJOUaJUU1qWSmcpZBKoc
+
+Step-11: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
